@@ -1,12 +1,8 @@
 {% extends 'market/base.html' %}
 
-
 {% block content %}
 <h2>Welcome, {{ user.username }}!</h2>
-
-
-
-
+<!-- rest of your dashboard content -->
 
 
 <h3>Your Recent Messages</h3>
@@ -16,12 +12,10 @@
         {{ msg.message }}<br>
         <small>{{ txn.created_at }}</small>
 
-
     </div>
 {% empty %}
     <p>No messages.</p>
 {% endfor %}
-
 
 <h3>Your Recent Transactions</h3>
 {% for txn in transactions %}
@@ -30,13 +24,11 @@
         <strong>Status:</strong> {{ txn.status }}<br>
         <small>{{ txn.created_at }}</small>
 
-
-       
+        
     </div>
 {% empty %}
     <p>No transactions.</p>
 {% endfor %}
-
 
 <h3>Explore</h3>
 <ul>
@@ -45,6 +37,5 @@
     <li><a href="{% url 'send_message' %}">Send a Message</a></li>
     <li><a href="{% url 'transaction_list' %}">View All Transactions</a></li>
 </ul>
-
 
 {% endblock %}

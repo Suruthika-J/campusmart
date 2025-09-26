@@ -1,6 +1,8 @@
 {% extends 'market/base.html' %}
+
 {% block content %}
 <h2>Welcome, {{ user.username }}!</h2>
+<!-- rest of your dashboard content -->
  
 <h2>List a New Item</h2>
 <form method="POST" enctype="multipart/form-data">
@@ -10,5 +12,6 @@
 </form>
 <a href="{% url 'search_items' %}">Search Items</a>
 
-
 {% endblock %}
+
+

@@ -1,0 +1,19 @@
+{% extends "market/base.html" %}
+
+{% block content %}
+<h2>Available Items</h2>
+
+<ul>
+    {% for item in items %}
+    <li>
+        <strong>{{ item.title }}</strong> - ${{ item.price }}
+        <a href="{% url 'buy_item' item.id %}">Buy</a>
+    </li>
+    {% empty %}
+    <li>No items available right now.</li>
+    {% endfor %}
+</ul>
+
+<br>
+<a href="{% url 'transaction_list' %}">My Transactions</a>
+{% endblock %}

@@ -21,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-bzv82ug)wg4q+8b&2ytc!wy(-50eb81t^ibdf3kfu^*tz+d)lk'
+SECRET_KEY = 'django-insecure-q23f#01)x0i%zm+&a6a(&1p_l^-$6g9!^4x4h$qnup5#%r*5tf'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -39,7 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'market',
-    ]
+    'channels',
+    
+]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -69,6 +71,12 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'campusmart.wsgi.application'
+ASGI_APPLICATION = 'campusmart.asgi.application'
+LOGIN_REDIRECT_URL = '/market/search/'
+LOGOUT_REDIRECT_URL = '/accounts/login/'
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'dashboard'
+LOGOUT_REDIRECT_URL = 'login'
 
 
 # Database
@@ -122,5 +130,6 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

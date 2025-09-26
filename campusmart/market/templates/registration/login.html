@@ -1,0 +1,13 @@
+<!--market/templates/registration/login.html-->
+{% extends 'market/base.html' %}
+{% block content %}
+<h2>Welcome, {{ user.username }}!</h2>
+<h2>Login</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Login</button>
+    <a href="{% url 'signup' %}">Create an account</a>
+</form>
+<!-- rest of your dashboard content -->
+{% endblock %}

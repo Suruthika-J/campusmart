@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
 CATEGORY_CHOICES = [
     ('books', 'Books'),
     ('electronics', 'Electronics'),
@@ -19,4 +20,4 @@ class Item(models.Model):
 
     def __str__(self):
         return self.title
-
+    
