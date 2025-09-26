@@ -1,0 +1,10 @@
+{% extends 'market/base.html' %}
+{% block content %}
+<h2>Buy Item: {{ item.title }}</h2>
+<p>Price: ₹{{ item.price }}</p>
+<form method="POST">
+    {% csrf_token %}
+    <button type="submit">Confirm Purchase</button>
+</form>
+<a href="{% url 'search_items' %}">Back to Search</a>
+{% endblock %}
