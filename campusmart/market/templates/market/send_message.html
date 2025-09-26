@@ -1,0 +1,13 @@
+{% extends 'market/base.html' %}
+
+{% block content %}
+<h2>Welcome, {{ user.username }}!</h2>
+<!-- rest of your dashboard content -->
+<h2>Send a Message</h2>
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Send</button>
+</form>
+<a href="{% url 'inbox' %}">Go to Inbox</a>
+{% endblock %}

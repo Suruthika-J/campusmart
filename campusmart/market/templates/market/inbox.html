@@ -1,0 +1,18 @@
+{% extends 'market/base.html' %}
+
+{% block content %}
+<h2>Welcome, {{ user.username }}!</h2>
+
+<h2>Your Inbox</h2>
+{% for msg in messages %}
+    <div>
+        <strong>From:</strong> {{ msg.sender.username }}<br>
+        <strong>Message:</strong> {{ msg.message }}<br>
+        <small>{{ msg.timestamp }}</small>
+    </div>
+    <hr>
+{% empty %}
+    <p>No messages yet.</p>
+{% endfor %}
+
+{% endblock %}

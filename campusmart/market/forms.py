@@ -14,3 +14,12 @@ class SearchForm(forms.Form):
     query = forms.CharField(required=False, label='Search')
     category = forms.ChoiceField(choices=[('', 'All')] + CATEGORY_CHOICES, required=False)
 
+class ChatForm(forms.ModelForm):
+    class Meta:
+        model = ChatMessage
+        fields = ['receiver', 'message']
+
+class TransactionForm(forms.ModelForm):
+    class Meta:
+        model = Transaction
+        fields = ['item', 'payment_status']  
