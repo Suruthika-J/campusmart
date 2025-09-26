@@ -7,7 +7,9 @@ from django.contrib import messages
 from .models import Item, Transaction, ChatMessage
 from .forms import ItemForm, SearchForm, ChatForm, TransactionForm
 
-
+# -----------------------------
+# User Signup
+# -----------------------------
 def signup(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -19,7 +21,9 @@ def signup(request):
         form = UserCreationForm()
     return render(request, 'registration/signup.html', {'form': form})
 
-
+# -----------------------------
+# Homepage / Dashboard
+# -----------------------------
 @login_required
 def home(request):
     return render(request, 'home.html')
@@ -44,6 +48,9 @@ def dashboard(request):
         'transactions': transactions,
     })
 
+# -----------------------------
+# Item Management
+# -----------------------------
 @login_required
 def add_item(request):
     if request.method == 'POST':
@@ -74,5 +81,69 @@ def search_items(request):
             items = items.filter(category=category)
     return render(request, 'market/search_items.html', {'form': form, 'items': items})
 
+# -----------------------------
+# Chat System
+# -----------------------------
+@login_required
+def send_message(request):
+    if request.method == 'POST':
+        form = ChatForm(request.POST)
+        if form.is_valid():
+            chat = form.save(commit=False)
+            chat.sender = request.user
+            chat.save()
+            return redirect('inbox')
+    else:
+        form = ChatForm()
+    return render(request, 'market/send_message.html', {'form': form})
 
 
+@login_required
+def inbox(request):
+    messages_list = ChatMessage.objects.filter(receiver=request.user).order_by('-timestamp')
+    return render(request, 'market/inbox.html', {'messages': messages_list})
+
+# -----------------------------
+# Transactions / Buying
+# -----------------------------
+@login_required
+def create_transaction(request, item_id):
+    item = get_object_or_404(Item, id=item_id)
+    if request.method == 'POST':
+        form = TransactionForm(request.POST)
+        if form.is_valid():
+            transaction = form.save(commit=False)
+            transaction.buyer = request.user
+            transaction.item = item
+            transaction.save()
+            return redirect('transaction_list')
+    else:
+        form = TransactionForm(initial={'item': item})
+    return render(request, 'market/create_transaction.html', {'form': form, 'item': item})
+
+@login_required
+def buy_item(request, item_id):
+    item = get_object_or_404(Item, id=item_id)
+    Transaction.objects.create(
+        item=item,
+        buyer=request.user,
+        seller=item.seller,
+        payment_status='pending'
+    )
+    messages.success(request, f"You bought {item.title}. Payment pending to {item.seller.username}.")
+    return redirect('market:transaction_list')
+
+
+@login_required
+def transaction_list(request):
+    transactions = Transaction.objects.filter(buyer=request.user)
+    return render(request, 'market/transaction_list.html', {'transactions': transactions})
+
+
+@login_required
+def pay_transaction(request, txn_id):
+    txn = get_object_or_404(Transaction, id=txn_id, buyer=request.user)
+    txn.payment_status = 'paid'  # mark as paid
+    txn.save()
+    messages.success(request, f"Payment completed for {txn.item.title} to {txn.seller.username}.")
+    return redirect('transaction_list')

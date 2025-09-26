@@ -1,0 +1,15 @@
+{% extends 'market/base.html' %}
+{% block content %}
+<h2>My Transactions</h2>
+{% for txn in transactions %}
+  <div>
+    <p>Item: {{ txn.item.title }} | Seller: {{ txn.seller.username }} | Status: {{ txn.payment_status }}</p>
+    {% if txn.payment_status == 'pending' %}
+      <form method="post" action="{% url 'pay_transaction' txn.id %}">
+        {% csrf_token %}
+        <button type="submit">Pay Now</button>
+      </form>
+    {% endif %}
+  </div>
+{% endfor %}
+{% endblock %}

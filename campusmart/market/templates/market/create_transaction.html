@@ -1,0 +1,15 @@
+{% extends 'market/base.html' %}
+
+{% block content %}
+<h2>Welcome, {{ user.username }}!</h2>
+<!-- rest of your dashboard content -->
+<h2>
+    Buy Item: {{ item.title }}</h2>
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Confirm Purchase</button>
+</form>
+<a href="{% url 'transaction_list' %}">View My Transactions</a>
+
+{% endblock %}
