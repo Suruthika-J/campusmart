@@ -23,6 +23,8 @@ Member 3: Chat & Transaction Tracking
 Built chat system between buyers & sellers
 Implemented purchase flow (transaction tracking)
 Added templates for chat & purchase confirmation
+
+
 -----------------------------------------------------------------------------
 Setup Instructions
 1. Clone the Repository
