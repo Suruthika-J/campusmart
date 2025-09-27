@@ -9,6 +9,7 @@ Authentication: Django’s built-in User model
 Version Control: Git & GitHub (collaborative workflow)
 
 Team Members & Responsibilities
+
 Member 1: Item Listing & Management
 Created Item model
 Implemented add/edit/delete item functionality
