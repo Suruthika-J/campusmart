@@ -37,8 +37,10 @@ python -m venv env-site
 env-site\Scripts\activate   # On Windows
 source env-site/bin/activate   # On Linux/Mac
 
-3. Install Dependencies
-pip install -r requirements.txt
+3. Install Dependencies 
+pip install  pillow
+pip install channels 
+
 
 4. Apply Migrations
 python manage.py makemigrations
